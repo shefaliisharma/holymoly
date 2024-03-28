@@ -1,6 +1,6 @@
 # Apple Music Dataset Analysis
 
- [![Available on GitHub](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://shefaliisharma.github.io/holymoly)
+ [![Available on GitHub](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/shefaliisharma/holymoly)
 
 <!-- TOC -->
 * [Apple Music Dataset Analysis](#apple-music-dataset-analysis)
