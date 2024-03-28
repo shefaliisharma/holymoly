@@ -1,7 +1,23 @@
 # Apple Music Dataset Analysis
 
- [![Available on GitHub](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://shefaliisharma.github.io/)
+ [![Available on GitHub](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://shefaliisharma.github.io/holymoly)
 
+<!-- TOC -->
+* [Apple Music Dataset Analysis](#apple-music-dataset-analysis)
+  * [Research Objectives](#research-objectives)
+  * [Methodology](#methodology)
+  * [Results](#results)
+    * [Temporal trends in music genres](#temporal-trends-in-music-genres)
+        * [Insights:](#insights)
+    * [Distribution of Track Prices & Average Price within each Genre (Explicit Only)](#distribution-of-track-prices--average-price-within-each-genre-explicit-only)
+        * [Observation:](#observation)
+    * [Popularity of Genre, measured by the number of tracks released, vary across different release years](#popularity-of-genre-measured-by-the-number-of-tracks-released-vary-across-different-release-years)
+        * [Observation:](#observation-1)
+    * [Correlation between the track price and the track duration within each genre](#correlation-between-the-track-price-and-the-track-duration-within-each-genre)
+        * [Observation:](#observation-2)
+    * [](#)
+  * [Conclusion](#conclusion)
+<!-- TOC -->
 This repository contains the analysis of a [Kaggle dataset on Apple Music](https://www.kaggle.com/datasets/kanchana1990/apple-music-dataset-10000-tracks-uncovered). The dataset provides information about tracks, collections, artists, genres, and other attributes related to Apple Music.
 
 While the dataset is available as a csv, in a real-life scenario, the data would be stored in a database, for example, PostgreSQL database. Therefore, I have performed the analysis using SQL queries to extract relevant information and answer the related research questions. Thus the solutions provided here will scale well to larger datasets and can be easily integrated into a production environment.
@@ -102,7 +118,7 @@ LEFT JOIN genre_table ON genre_table."primaryGenreName" = cjgy.genre AND genre_t
 
 ![Fig 1](assets/fig1.png)
 
-##### Insights:
+##### Observation:
 - For all the genres the pattern is the number of tracks have increased significantly around 1990's. This pattern is seen for all genres. 
 - Here I have selected only three Genres for display.
 
@@ -155,11 +171,30 @@ SELECT * FROM ranked_genre WHERE rank = 1 ORDER BY release_year DESC;
 ![Fig 4](assets/fig4.png)
 
 ##### Observation:
-The bar graph displays the correlation is variable across the genre.
+The bar graph displays the correlation is variable across the genre with the highest being within Comedy & Indie Rock (inversely correlated).
 
-[//]: # (Work In Progress)
+### Temporal patterns in the release duration of tracks within Collections
 
+```sql
+WITH collection_table AS(
+SELECT "collectionId","collectionName", MAX("releaseDate")::date AS last_release, MIN("releaseDate")::date AS first_release, MAX("releaseDate") - MIN("releaseDate") AS collection_release_duration
+FROM apple_music_dataset
+GROUP BY "collectionName", "collectionId"
+ORDER BY collection_release_duration DESC),
 
+collection_table2 AS
+( 
+SELECT DISTINCT "collectionId", "collectionName", "primaryGenreName"
+FROM apple_music_dataset
+)
+SELECT "primaryGenreName", collection_table."collectionName", first_release, last_release, collection_release_duration
+FROM collection_table JOIN collection_table2
+ON collection_table."collectionId" = collection_table2."collectionId";
+```
+
+![Fig 5](assets/fig5.png)
+
+##### Observation:
 
 
 ## Conclusion
