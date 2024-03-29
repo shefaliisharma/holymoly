@@ -186,7 +186,7 @@ ON collection_table."collectionId" = collection_table2."collectionId";
 ![Fig 5](assets/fig5_ii.png)
 
 ##### Observation:
-Few durations are large in numbers. For instance, Traditional Comedy has ONLY one collection named: "Ultimate Waylon Jennings".
+Few durations are large in numbers. For instance, Traditional Country has ONLY one collection named: "Ultimate Waylon Jennings".
 > I was curious, so I searched the collection in Apple Music ([source](https://music.apple.com/in/album/ultimate-waylon-jennings/284985709)) and found that last song: 'America' was released in 1984 & the first song: 'Highwayman'
  in 1964. 
 
