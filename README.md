@@ -8,17 +8,7 @@
 * [Apple Music Dataset Analysis](#apple-music-dataset-analysis)
   * [Research Objectives](#research-objectives)
   * [Methodology](#methodology)
-  * [Results](#results)
-    * [Temporal trends in music genres](#temporal-trends-in-music-genres)
-        * [Observation:](#observation)
-    * [Distribution of Track Prices & Average Price within each Genre (Explicit Only)](#distribution-of-track-prices--average-price-within-each-genre-explicit-only)
-        * [Observation:](#observation-1)
-    * [Popularity of Genre, measured by the number of tracks released, vary across different release years](#popularity-of-genre-measured-by-the-number-of-tracks-released-vary-across-different-release-years)
-        * [Observation:](#observation-2)
-    * [Correlation between the track price and the track duration within each genre](#correlation-between-the-track-price-and-the-track-duration-within-each-genre)
-        * [Observation:](#observation-3)
-    * [Temporal patterns in the release duration of tracks within Collections](#temporal-patterns-in-the-release-duration-of-tracks-within-collections)
-        * [Observation:](#observation-4)
+  * [Research](#research)
   * [Conclusion](#conclusion)
 <!-- TOC -->
 
@@ -27,7 +17,7 @@ This repository contains the analysis of a [Kaggle dataset on Apple Music](https
 
 While the dataset is available as a csv, in a real-life scenario, the data would be stored in a database, for example, PostgreSQL database. Therefore, I have performed the analysis using SQL queries to extract relevant information and answer the related research questions. Thus the solutions provided here will scale well to larger datasets and can be easily integrated into a production environment.
 
-The SQL table preview corressponding to the dataset is as follows:
+The SQL table preview corresponding to the dataset is as follows:
 
 | artistId | artistName | collectionCensoredName | collectionId | collectionName | collectionPrice | contentAdvisoryRating | country | currency | discCount | discNumber | isStreamable | kind | previewUrl | primaryGenreName | releaseDate | trackCensoredName | trackCount | trackExplicitness | trackId | trackName | trackNumber | trackPrice | trackTimeMillis |
 |----------|------------|------------------------|--------------|----------------|-----------------|-----------------------|---------|----------|-----------|------------|--------------|------|------------|------------------|-------------|-------------------|------------|------------------|---------|-----------|-------------|------------|----------------|
@@ -70,16 +60,14 @@ CREATE TABLE apple_music_dataset (
 
 ## Research Objectives
 
-1. Examine the trends in music genres over the years, specifically focusing on the number of tracks released within each genre. This analysis aims to identify genres that have seen a decline or increase in their popularity within the music industry over time.
-2. Understand the distribution of track prices within each music genre, specifically focusing on tracks with explicit content.
-3. Investigate how the popularity of tracks, as indicated by the number of purchases, fluctuates across different release years within each genre. This will provide a historical perspective on the popularity trends of different music genres, potentially revealing shifts in consumer preferences over time.
-4. Examine how the average track duration has evolved over the years for the top 5 artists with the highest number of tracks. This will provide insights into the changing trends in track lengths among the most prolific artists, potentially reflecting broader shifts in the music industry's production norms.
-5. Investigate the correlation between track price and track duration within each genre, aiming to uncover any discernible patterns or associations. This analysis will provide insights into how pricing relates to duration across different musical genres, potentially revealing genre-specific trends.
-6. Analyze the release patterns of tracks for artists with similar popularity levels but different genres. This will help identify genre-specific release strategies and patterns that artists adopt to maximize their reach and impact in the music industry.
-7. Analyze the relationship between the price of individual tracks and their counterparts within collections, aiming to discern any disparities or trends in pricing.
-8. Investigate the correlation between the number of tracks in a collection and the average track price within each genre. This analysis aims to uncover potential patterns or trends in pricing strategies across different genres, shedding light on how the size of a music collection influences the average price per track.
-9. Explore the relationship between the popularity of tracks and the explicitness of the tracks within each genre. This analysis aims to identify any patterns or trends in consumer preferences based on the explicit content of tracks, potentially revealing genre-specific patterns in popularity.
-10. Identify any outliers in terms of track duration among tracks released by the top 5 artists. This analysis aims to uncover any unusual or exceptional tracks in terms of duration that stand out from the rest of the artists' discography.
+1. [How have music genres evolved over time in terms of the number of tracks released?](#temporal-trends-in-music-genres)
+2. [How does the average price of explicit tracks compare across different music genres?]((#distribution-of-track-prices--average-price-within-each-genre-explicit-only)) 
+3. [Can we observe any historical shifts in consumer preferences based on the number of tracks released?](#popularity-of-genre-measured-by-the-number-of-tracks-released-vary-across-different-release-years) 
+4. [Is there a relationship between the price of a track and its duration within each music genre?](#correlation-between-the-track-price-and-the-track-duration-within-each-genre) 
+5. [Are there genres where the length of tracks in collections tends to be longer or shorter?](#temporal-patterns-in-the-release-duration-of-tracks-within-collections) 
+6. [How do the prices of individual tracks compare to those within collections?](#distribution-of-track-prices-between-single-tracks--tracks-within-collections) 
+7. [How does the number of tracks in a collection relate to the average track price within each genre?](#relationship-between-no-of-tracks-in-a-collection-and-the-average-track-price-within-genres) 
+8. [Which tracks stand out as outliers in duration among the top 5 artists' tracks?](#identifying-outliers-for-track-duration-for-the-top-5-artists)
 
 ## Methodology
 
@@ -204,8 +192,66 @@ Few durations are large in numbers. For instance, Traditional Comedy has ONLY on
 > I was curious, so I searched the collection in Apple Music ([source](https://music.apple.com/in/album/ultimate-waylon-jennings/284985709)) and found that last song: 'America' was released in 1984 & the first song: 'Highwayman'
  in 1964. 
 
-### 
+### Distribution of Track Prices between single tracks & tracks within collections
 
+```sql
+WITH category_tracks AS 
+(
+SELECT "collectionId", COUNT("trackId"), CASE WHEN COUNT("trackId") = 1 THEN 'single' ELSE 'collection' END AS category_of_track 
+FROM apple_music_dataset 
+GROUP BY "collectionId"
+)
+
+SELECT category_of_track, SUM("trackPrice") AS sum_price, ROUND(AVG("trackPrice"),3) AS avg_track_price, COUNT("trackId")/COUNT(DISTINCT category_tracks."collectionId") AS avg_nos_of_tracks_collection, COUNT(DISTINCT category_tracks."collectionId") AS "No. of Collections"
+FROM apple_music_dataset JOIN category_tracks
+ON apple_music_dataset."collectionId" = category_tracks."collectionId"
+GROUP BY category_of_track;
+```
+![Fig 6](assets/fig6.png)
+
+##### Observation:
+Here is a tabular representation of basic stats of Single Tracks vs Tracks within a Collection. Obviously, single tracks are more, and the average price per track is same regardless whether the song is part of a collection or not.
+
+### Relationship between no. of tracks in a collection and the average track price (within genres)
+
+```sql
+SELECT "primaryGenreName", "collectionName", AVG("trackPrice") OVER(PARTITION BY "collectionId") AS avg_price, COUNT("trackId") OVER(PARTITION BY "collectionId") 
+FROM apple_music_dataset
+WHERE "trackPrice" > 0;
+```
+![Fig 7](assets/fig7.png)
+
+##### Observation:
+This chart shows starkly that the avg track price has been consistent regardless the no. of tracks in a collection. 
+
+### Identifying outliers for track duration for the top 5 artists:
+
+```sql
+WITH top_artists AS (
+SELECT "artistId", "artistName", RANK() OVER(ORDER BY COUNT("trackId") DESC) AS rank
+FROM apple_music_dataset 
+GROUP BY "artistId", "artistName"
+),
+
+outliers_table AS
+(
+SELECT "artistId","artistName", COUNT("trackId"),
+percentile_cont(0.95) WITHIN GROUP (ORDER BY "trackTimeMillis") AS percentile_95, 
+percentile_cont(0.05) WITHIN GROUP (ORDER BY "trackTimeMillis") AS percentile_5 
+FROM apple_music_dataset GROUP BY "artistId", "artistName"
+)
+
+SELECT t."artistName", ad."trackName", ad."trackTimeMillis", o.percentile_95, o.percentile_5
+FROM apple_music_dataset ad RIGHT JOIN outliers_table o
+ON o."artistId" = ad."artistId"
+JOIN top_artists t ON t."artistId" = o."artistId"
+WHERE t.rank <= 5 AND (ad."trackTimeMillis" > o.percentile_95 OR ad."trackTimeMillis" < o.percentile_5);
+```
+![Fig 8](assets/fig8.png)
+
+##### Observation:
+Durations in milli-Secs against the top 5 artists on x-axis. Do you see MJ has several outliers for the duration: and one of the is :drumroll:
+>Beat it! by Michael Jackson
 
 ## Conclusion
 
