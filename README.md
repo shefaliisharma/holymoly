@@ -1,3 +1,5 @@
+[Back to my profile](https://shefaliisharma.github.io/shefaliisharma/)
+
 # Apple Music Dataset Analysis
 
  [![Available on GitHub](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/shefaliisharma/holymoly)
@@ -8,16 +10,19 @@
   * [Methodology](#methodology)
   * [Results](#results)
     * [Temporal trends in music genres](#temporal-trends-in-music-genres)
-        * [Insights:](#insights)
-    * [Distribution of Track Prices & Average Price within each Genre (Explicit Only)](#distribution-of-track-prices--average-price-within-each-genre-explicit-only)
         * [Observation:](#observation)
-    * [Popularity of Genre, measured by the number of tracks released, vary across different release years](#popularity-of-genre-measured-by-the-number-of-tracks-released-vary-across-different-release-years)
+    * [Distribution of Track Prices & Average Price within each Genre (Explicit Only)](#distribution-of-track-prices--average-price-within-each-genre-explicit-only)
         * [Observation:](#observation-1)
-    * [Correlation between the track price and the track duration within each genre](#correlation-between-the-track-price-and-the-track-duration-within-each-genre)
+    * [Popularity of Genre, measured by the number of tracks released, vary across different release years](#popularity-of-genre-measured-by-the-number-of-tracks-released-vary-across-different-release-years)
         * [Observation:](#observation-2)
-    * [](#)
+    * [Correlation between the track price and the track duration within each genre](#correlation-between-the-track-price-and-the-track-duration-within-each-genre)
+        * [Observation:](#observation-3)
+    * [Temporal patterns in the release duration of tracks within Collections](#temporal-patterns-in-the-release-duration-of-tracks-within-collections)
+        * [Observation:](#observation-4)
   * [Conclusion](#conclusion)
 <!-- TOC -->
+
+
 This repository contains the analysis of a [Kaggle dataset on Apple Music](https://www.kaggle.com/datasets/kanchana1990/apple-music-dataset-10000-tracks-uncovered). The dataset provides information about tracks, collections, artists, genres, and other attributes related to Apple Music.
 
 While the dataset is available as a csv, in a real-life scenario, the data would be stored in a database, for example, PostgreSQL database. Therefore, I have performed the analysis using SQL queries to extract relevant information and answer the related research questions. Thus the solutions provided here will scale well to larger datasets and can be easily integrated into a production environment.
@@ -88,7 +93,7 @@ My local setup for achieving the above consisted of:
 - Postico PostgreSQL client for querying the database and exploratory data analysis
 - JetBrains PyCharm IDE for writing and running Python code
 
-## Results
+## Research
 
 The results of the analysis are summarized below. I have included the SQL queries that were used to generate the results and the final visualizations. Incase you are interested in the python code that was used to create the charts and visualizations, it is available in the github repository.
 
@@ -192,9 +197,14 @@ FROM collection_table JOIN collection_table2
 ON collection_table."collectionId" = collection_table2."collectionId";
 ```
 
-![Fig 5](assets/fig5.png)
+![Fig 5](assets/fig5_ii.png)
 
 ##### Observation:
+Few durations are large in numbers. For instance, Traditional Comedy has ONLY one collection named: "Ultimate Waylon Jennings".
+> I was curious, so I searched the collection in Apple Music ([source](https://music.apple.com/in/album/ultimate-waylon-jennings/284985709)) and found that last song: 'America' was released in 1984 & the first song: 'Highwayman'
+ in 1964. 
+
+
 
 
 ## Conclusion
