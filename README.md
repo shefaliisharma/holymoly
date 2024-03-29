@@ -1,8 +1,5 @@
 [Back to my profile](https://shefaliisharma.github.io/shefaliisharma/)
 
-# Apple Music Dataset Analysis
-
- [![Available on GitHub](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/shefaliisharma/holymoly)
 
 <!-- TOC -->
 * [Apple Music Dataset Analysis](#apple-music-dataset-analysis)
@@ -19,9 +16,6 @@ While the dataset is available as a csv, in a real-life scenario, the data would
 
 The SQL table preview corresponding to the dataset is as follows:
 
-<details>
-<summary>Preview of the Table</summary>
-
 | artistId | artistName | collectionCensoredName | collectionId | collectionName | collectionPrice | contentAdvisoryRating | country | currency | discCount | discNumber | isStreamable | kind | previewUrl | primaryGenreName | releaseDate | trackCensoredName | trackCount | trackExplicitness | trackId | trackName | trackNumber | trackPrice | trackTimeMillis |
 |----------|------------|------------------------|--------------|----------------|-----------------|-----------------------|---------|----------|-----------|------------|--------------|------|------------|------------------|-------------|-------------------|------------|------------------|---------|-----------|-------------|------------|----------------|
 | 219350813 | The Neighbourhood | I Love You. | 635016635 | I Love You. | 9.99 |  | USA | USD | 1 | 1 | TRUE | song | [Preview](https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview112/v4/b9/1a/41/b91a4115-f91b-4bd1-dc03-38964c1328a5/mzaf_12342250626902314230.plus.aac.p.m4a) | Alternative | 2013-04-22 12:30:00+05:30 | Float | 11 | notExplicit | 635016647 | Float | 11 | 1.29 | 261200 |
@@ -30,7 +24,6 @@ The SQL table preview corresponding to the dataset is as follows:
 | 28721078 | Sia | 1000 Forms of Fear | 882945378 | 1000 Forms of Fear | 9.99 |  | USA | USD | 1 | 1 | TRUE | song | [Preview](https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/76/5b/17/765b173e-f861-a846-1627-03fce14795a4/mzaf_6635366094375706754.plus.aac.p.m4a) | Pop | 2014-07-04 12:30:00+05:30 | Cellophane | 12 | notExplicit | 882945396 | Cellophane | 11 | 1.29 | 265587 |
 | 80456331 | Panic! At the Disco | Pretty. Odd. (Deluxe Version) | 275965231 | Pretty. Odd. (Deluxe Version) | 12.99 |  | USA | USD | 1 | 1 | TRUE | song | [Preview](https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/dc/79/62/dc7962c0-452b-9062-d656-0f93b70e4d65/mzaf_13536033148520859834.plus.aac.p.m4a) | Alternative | 2008-03-25 12:30:00+05:30 | Northern Downpour | 18 | notExplicit | 275965263 | Northern Downpour | 7 | 1.29 | 247773 |
 
-</details>
 
 DDL of the table: 
 
