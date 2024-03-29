@@ -3,13 +3,27 @@
 
 <!-- TOC -->
   * [Objectives](#objectives)
-  * [Methodology](#methodology)
-  * [Research](#research)
+  * [Dataset & Methodology](#dataset--methodology)
+  * [Research & Analysis](#research--analysis)
   * [Conclusion](#conclusion)
 <!-- TOC -->
 
+This repository contains the analysis of a [Kaggle dataset on Apple Music](https://www.kaggle.com/datasets/kanchana1990/apple-music-dataset-10000-tracks-uncovered). 
 
-This repository contains the analysis of a [Kaggle dataset on Apple Music](https://www.kaggle.com/datasets/kanchana1990/apple-music-dataset-10000-tracks-uncovered). The dataset provides information about tracks, collections, artists, genres, and other attributes related to Apple Music.
+## Objectives
+
+1. [How have music genres evolved over time in terms of the number of tracks released?](#temporal-trends-in-music-genres)
+2. [How does the average price of explicit tracks compare across different music genres?](#distribution-of-track-prices--average-price-within-each-genre-explicit-only) 
+3. [Can we observe any historical shifts in consumer preferences based on the number of tracks released?](#popularity-of-genre-measured-by-the-number-of-tracks-released-vary-across-different-release-years) 
+4. [Is there a relationship between the price of a track and its duration within each music genre?](#correlation-between-the-track-price-and-the-track-duration-within-each-genre) 
+5. [Are there genres where the length of tracks in collections tends to be longer or shorter?](#temporal-patterns-in-the-release-duration-of-tracks-within-collections) 
+6. [How do the prices of individual tracks compare to those within collections?](#distribution-of-track-prices-between-single-tracks--tracks-within-collections) 
+7. [How does the number of tracks in a collection relate to the average track price within each genre?](#relationship-between-no-of-tracks-in-a-collection-and-the-average-track-price-within-genres) 
+8. [Which tracks stand out as outliers in duration among the top 5 artists' tracks?](#identifying-outliers-for-track-duration-for-the-top-5-artists)
+
+## Dataset & Methodology
+
+The dataset provides information about tracks, collections, artists, genres, and other attributes related to Apple Music.
 
 While the dataset is available as a csv, in a real-life scenario, the data would be stored in a database, for example, PostgreSQL database. Therefore, I have performed the analysis using SQL queries to extract relevant information and answer the related research questions. Thus the solutions provided here will scale well to larger datasets and can be easily integrated into a production environment.
 
@@ -54,21 +68,7 @@ CREATE TABLE apple_music_dataset (
     "trackTimeMillis" integer
 );
 ```
-
-## Objectives
-
-1. [How have music genres evolved over time in terms of the number of tracks released?](#temporal-trends-in-music-genres)
-2. [How does the average price of explicit tracks compare across different music genres?](#distribution-of-track-prices--average-price-within-each-genre-explicit-only) 
-3. [Can we observe any historical shifts in consumer preferences based on the number of tracks released?](#popularity-of-genre-measured-by-the-number-of-tracks-released-vary-across-different-release-years) 
-4. [Is there a relationship between the price of a track and its duration within each music genre?](#correlation-between-the-track-price-and-the-track-duration-within-each-genre) 
-5. [Are there genres where the length of tracks in collections tends to be longer or shorter?](#temporal-patterns-in-the-release-duration-of-tracks-within-collections) 
-6. [How do the prices of individual tracks compare to those within collections?](#distribution-of-track-prices-between-single-tracks--tracks-within-collections) 
-7. [How does the number of tracks in a collection relate to the average track price within each genre?](#relationship-between-no-of-tracks-in-a-collection-and-the-average-track-price-within-genres) 
-8. [Which tracks stand out as outliers in duration among the top 5 artists' tracks?](#identifying-outliers-for-track-duration-for-the-top-5-artists)
-
-## Methodology
-
-The analysis was performed using SQL queries on the Apple Music dataset. The dataset was queried to extract relevant information and answer the research questions. The queries used in the analysis are provided in the results section below.
+The analysis was performed using PostgreSQL queries. The dataset was queried to extract relevant information and answer the research questions. The queries used in the analysis are provided in the results section below.
 
 The data from SQL cursors was loaded into a Pandas DataFrame for further visualization and the charts were created using libraries such as Matplotlib and Seaborn.
 
@@ -78,7 +78,7 @@ My local setup for achieving the above consisted of:
 - Postico PostgreSQL client for querying the database and exploratory data analysis
 - JetBrains PyCharm IDE for writing and running Python code
 
-## Research
+## Research & Analysis
 
 The results of the analysis are summarized below. I have included the SQL queries that were used to generate the results and the final visualizations. Incase you are interested in the python code that was used to create the charts and visualizations, it is available in the github repository.
 
