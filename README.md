@@ -2,8 +2,7 @@
 
 
 <!-- TOC -->
-* [Apple Music Dataset Analysis](#apple-music-dataset-analysis)
-  * [Research Objectives](#research-objectives)
+  * [Objectives](#objectives)
   * [Methodology](#methodology)
   * [Research](#research)
   * [Conclusion](#conclusion)
@@ -56,10 +55,10 @@ CREATE TABLE apple_music_dataset (
 );
 ```
 
-## Research Objectives
+## Objectives
 
 1. [How have music genres evolved over time in terms of the number of tracks released?](#temporal-trends-in-music-genres)
-2. [How does the average price of explicit tracks compare across different music genres?]((#distribution-of-track-prices--average-price-within-each-genre-explicit-only)) 
+2. [How does the average price of explicit tracks compare across different music genres?](#distribution-of-track-prices--average-price-within-each-genre-explicit-only) 
 3. [Can we observe any historical shifts in consumer preferences based on the number of tracks released?](#popularity-of-genre-measured-by-the-number-of-tracks-released-vary-across-different-release-years) 
 4. [Is there a relationship between the price of a track and its duration within each music genre?](#correlation-between-the-track-price-and-the-track-duration-within-each-genre) 
 5. [Are there genres where the length of tracks in collections tends to be longer or shorter?](#temporal-patterns-in-the-release-duration-of-tracks-within-collections) 
