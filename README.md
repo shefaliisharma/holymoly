@@ -21,6 +21,7 @@ The SQL table preview corresponding to the dataset is as follows:
 
 <details>
 <summary>Preview of the Table</summary>
+
 | artistId | artistName | collectionCensoredName | collectionId | collectionName | collectionPrice | contentAdvisoryRating | country | currency | discCount | discNumber | isStreamable | kind | previewUrl | primaryGenreName | releaseDate | trackCensoredName | trackCount | trackExplicitness | trackId | trackName | trackNumber | trackPrice | trackTimeMillis |
 |----------|------------|------------------------|--------------|----------------|-----------------|-----------------------|---------|----------|-----------|------------|--------------|------|------------|------------------|-------------|-------------------|------------|------------------|---------|-----------|-------------|------------|----------------|
 | 219350813 | The Neighbourhood | I Love You. | 635016635 | I Love You. | 9.99 |  | USA | USD | 1 | 1 | TRUE | song | [Preview](https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview112/v4/b9/1a/41/b91a4115-f91b-4bd1-dc03-38964c1328a5/mzaf_12342250626902314230.plus.aac.p.m4a) | Alternative | 2013-04-22 12:30:00+05:30 | Float | 11 | notExplicit | 635016647 | Float | 11 | 1.29 | 261200 |
