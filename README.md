@@ -1,4 +1,4 @@
-[Back to my profile](https://shefaliisharma.github.io/shefaliisharma/)
+[Back to my profile](https://shefaliisharma.github.io/)
 
 
 <!-- TOC -->
